@@ -10,49 +10,22 @@ class UserController extends Controller
 {
     public function index()
     {
-        // tambah data user dengan Eloquent Model
-        // $data = [
-        //     'nama' => 'Pelanggan Pertama',
-        // ];
-        // UserModel::where('username', 'customer-1')->update($data); //update data user
-        
-        // $data = [
-        //     'username' => 'customer-1',
-        //     'nama' => 'Pelanggan',
-        //     'password' => Hash::make('12345'),
-        //     'level_id' => 4
-        // ];
-        // UserModel::insert($data); // tambahkan data ke table m_user
-        
-        // coba akses model UserModel
-        //$user = UserModel::all(); // ambil semua data dari tabel m_user
-        //$user = UserModel::find(1); // ambil data dari tabel m_user dengan id = 1
-        //$user = UserModel::where('level_id', 1)->first(); // ambil data dari tabel m_user dengan level_id = 1
-        //$user = UserModel::firstWhere('level_id', 1); // ambil data dari tabel m_user dengan level_id = 1 dan ambil data pertama
-        // $user = UserModel::findOr(20, ['username', 'nama'], function(){
-        //     abort(404);
-        // }); // ambil data dari tabel m_user dengan id = 1, jika tidak ada, tampilkan error 404
-        //$user = UserModel::findOrFail(1);
-        //$user = UserModel::where('username', 'manager9')->firstOrFail();
-        // $userCount = UserModel::where('level_id', 2)->count();
-        // return view('user', ['data' => $userCount]);
-        // $user = UserModel::firstOrCreate(
-        //     [
-        //         'username' => 'manager22',
-        //         'nama' => 'Manager Dua Dua',
-        //         'password' => Hash::make('12345'),
-        //         'level_id' => 2
-        //     ],
-        // ); // jika data tidak ada, tambahkan data ke table m_user
-        $user = UserModel::firstOrNew(
-            [
-                'username' => 'manager33',
-                'nama' => 'Manager Tiga Tiga',
-                'password' => Hash::make('12345'),
-                'level_id' => 2
-            ]
-        );
+        $user = UserModel::create([
+            'username' => 'manager11',
+            'nama' => 'Manager11',
+            'password' => Hash::make('12345'),
+            'level_id' => 2,
+        ]);
+
+        $user->username = 'manager12';
+
         $user->save();
-        return view('user', ['data' => $user]);
+
+        $user->wasChanged(); // true
+        $user->wasChanged('username'); // true
+        $user->wasChanged(['username', 'level_id']); // true
+        $user->wasChanged('nama'); // false
+        $user->wasChanged(['nama', 'username']); // true
+        dd($user->wasChanged(['nama', 'username'])); // true
     }
 }
