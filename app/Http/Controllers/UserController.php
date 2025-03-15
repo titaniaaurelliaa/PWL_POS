@@ -33,7 +33,9 @@ class UserController extends Controller
         //     abort(404);
         // }); // ambil data dari tabel m_user dengan id = 1, jika tidak ada, tampilkan error 404
         //$user = UserModel::findOrFail(1);
-        $user = UserModel::where('username', 'manager9')->firstOrFail();
-        return view('user', ['data' => $user]);
+        //$user = UserModel::where('username', 'manager9')->firstOrFail();
+        $userCount = UserModel::where('level_id', 2)->count();
+        return view('user', ['data' => $userCount]);
+        //return view('user', ['data' => $user]);
     }
 }
