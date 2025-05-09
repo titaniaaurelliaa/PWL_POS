@@ -29,7 +29,7 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth'); // 
 
 
 
-
+// artinya semua route di dalam group ini harus punya role ADM (a) atau MNG
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [WelcomeController::class,'index']);
     
@@ -143,8 +143,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{id}', [SupplierController::class, 'destroy']);
     });
 
+    //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
     //route CRUD barang
-    Route::group(['prefix' => 'barang'], function () {
+    Route::middleware(['authorize:ADM,MNG'])->group(function () {
         Route::get('/', [BarangController::class, 'index']);
         Route::post('/list', [BarangController::class, 'list']);
         Route::get('/create', [BarangController::class, 'create']);
