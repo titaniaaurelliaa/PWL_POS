@@ -1,7 +1,12 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Models\LevelModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 class AuthController extends Controller
 {
     public function login()
@@ -38,5 +43,41 @@ class AuthController extends Controller
         $request->session()->invalidate(); // Menghapus data session
         $request->session()->regenerateToken(); // Membuat token baru untuk CSRF
         return redirect('login'); // Redirect ke halaman login
+    }
+
+    public function register()
+    {
+        $levels = LevelModel::all(); // Ambil semua data level
+        return view('auth.register', ['levels' => $levels]); // Kirim ke view
+    }
+        
+    public function postRegister(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|min:3|unique:m_user,username',
+            'nama' => 'required|string|max:100',
+            'password' => 'required|min:5',
+            'level_id' => 'required|exists:m_level,level_id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data gagal disimpan',
+                'errors' => $validator->errors()
+            ]);
+        }
+
+        UserModel::create([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => bcrypt($request->password),
+            'level_id' => $request->level_id
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Registrasi berhasil'
+        ]);
     }
 }

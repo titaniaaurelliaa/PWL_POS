@@ -22,12 +22,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::pattern('id', '[0-9]+'); // menambahkan pattern untuk id agar hanya angka
 
-//route login dan logout
+//route login, logout, dan register
+Route::get('register', [AuthController::class, 'register'])->name('register'); // menampilkan halaman register
+Route::post('register', [AuthController::class, 'postregister']); // proses register
 Route::get('login', [AuthController::class, 'login'])->name('login'); // menampilkan halaman login
 Route::post('login', [AuthController::class, 'postlogin']); // proses login
 Route::get('logout', [AuthController::class, 'logout'])->name('logout'); // proses logout
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth'); // proses logout
-
 
 
 // artinya semua route di dalam group ini harus punya role ADM (a) atau MNG
