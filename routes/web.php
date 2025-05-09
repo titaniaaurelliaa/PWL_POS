@@ -22,10 +22,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::pattern('id', '[0-9]+'); // menambahkan pattern untuk id agar hanya angka
 
-//route login
+//route login dan logout
 Route::get('login', [AuthController::class, 'login'])->name('login'); // menampilkan halaman login
 Route::post('login', [AuthController::class, 'postlogin']); // proses login
-Route::get('logout', [AuthController::class, 'logout'])->middleware('auth'); // proses logout
+Route::get('logout', [AuthController::class, 'logout'])->name('logout'); // proses logout
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth'); // proses logout
 
 
 
@@ -146,27 +147,27 @@ Route::middleware(['auth'])->group(function () {
     //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
     //route CRUD barang
     Route::middleware(['authorize:ADM,MNG'])->group(function () {
-        Route::get('/', [BarangController::class, 'index']);
-        Route::post('/list', [BarangController::class, 'list']);
-        Route::get('/create', [BarangController::class, 'create']);
-        Route::post('/', [BarangController::class, 'store']);
+        Route::get('/barang', [BarangController::class, 'index']);
+        Route::post('/barang/list', [BarangController::class, 'list']);
+        Route::get('/barang/create', [BarangController::class, 'create']);
+        Route::post('/barang', [BarangController::class, 'store']);
 
         // Create dengan ajax
-        Route::get('/create_ajax', [BarangController::class, 'create_ajax']);
-        Route::post('/ajax', [BarangController::class, 'store_ajax']);
+        Route::get('/barang/create_ajax', [BarangController::class, 'create_ajax']);
+        Route::post('/barang/ajax', [BarangController::class, 'store_ajax']);
 
 
-        Route::get('/{id}', [BarangController::class, 'show']);
-        Route::get('/{id}/edit', [BarangController::class, 'edit']);
-        Route::put('/{id}', [BarangController::class, 'update']);
+        Route::get('/barang/{id}', [BarangController::class, 'show']);
+        Route::get('/barang/{id}/edit', [BarangController::class, 'edit']);
+        Route::put('/barang/{id}', [BarangController::class, 'update']);
 
         // Edit dengan ajax
-        Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
-        Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']);
+        Route::get('/barang/{id}/edit_ajax', [BarangController::class, 'edit_ajax']);
+        Route::put('/barang/{id}/update_ajax', [BarangController::class, 'update_ajax']);
 
         // Delete dengan ajax
-        Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
-        Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
-        Route::delete('/{id}', [BarangController::class, 'destroy']);
+        Route::get('/barang/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']);
+        Route::delete('/barang/{id}/delete_ajax', [BarangController::class, 'delete_ajax']);
+        Route::delete('/barang/{id}', [BarangController::class, 'destroy']);
     });
 });
