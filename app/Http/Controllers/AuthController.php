@@ -12,11 +12,11 @@ class AuthController extends Controller
         return view('auth.login');
     }
     
-    public function postlogin(Request $request)
+    public function postLogin(Request $request)
     {
-        if($request->ajax() || $request->wantsJson()){
+        if ($request->ajax() || $request->wantsJson()) {
             $credentials = $request->only('username', 'password');
-            
+
             if (Auth::attempt($credentials)) {
                 return response()->json([
                     'status' => true,
@@ -24,6 +24,7 @@ class AuthController extends Controller
                     'redirect' => url('/')
                 ]);
             }
+
             return response()->json([
                 'status' => false,
                 'message' => 'Login Gagal'
@@ -31,6 +32,7 @@ class AuthController extends Controller
         }
         return redirect('login');
     }
+
     public function logout(Request $request)
     {
         Auth::logout();
