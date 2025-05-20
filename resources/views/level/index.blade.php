@@ -5,6 +5,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
+                <button onclick="modalAction('{{ url('/level/import') }}')" class="btn btn-sm btn-info mt-1">Import Level</button>
                 <a href="{{ url('level/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a>
                 <button onclick="modalAction('{{ url('level/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
             </div>
@@ -99,6 +100,14 @@
             $('#level_id').on('change', function() {
                 dataLevel.ajax.reload();
             });
+            $('#table-level_filter input').unbind().bind().on('keyup', function(e) {
+            if (e.keyCode == 13) { // enter key
+                tableLevel.search(this.value).draw();
+            }
+        });
+        $('.filter_level').change(function() {
+            tableLevel.draw();
+        });
         })
     </script>
 @endpush

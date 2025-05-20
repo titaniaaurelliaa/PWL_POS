@@ -75,7 +75,7 @@
                 }
             },
             columns: [{
-                    data: "No_Urut",
+                    data: "DT_RowIndex",
                     className: "text-center",
                     width: "5%",
                     orderable: false,
