@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LevelController extends Controller
 {
@@ -375,5 +376,21 @@ class LevelController extends Controller
         $writer->save('php://output');
         exit;
         // end function export_excel
+    }
+
+    // Export data level ke file pdf
+    public function export_pdf()
+    {
+        $level = LevelModel::select('level_kode', 'level_nama')
+            ->orderBy('level_kode')
+            ->get();
+
+        // use Barryvdh\DomPDF\Facade\Pdf;
+        $pdf = Pdf::loadView('level.export_pdf', ['level' => $level]);
+        $pdf->setPaper('a4', 'portrait');  // set ukuran kertas dan orientasi
+        $pdf->setOption("isRemoteEnabled", true); // set true jika ada gambar dari url
+        $pdf->render();
+
+        return $pdf->stream('Data level ' . date('Y-m-d H:i:s') . '.pdf');
     }
 }

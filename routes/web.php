@@ -105,6 +105,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/level/import', [LevelController::class, 'import']); //ajax from upload excel
         Route::post('/level/import_ajax', [LevelController::class, 'import_ajax']); //ajax import excel
         Route::get('/level/export_excel', [LevelController::class, 'export_excel']); //ajax from download excel
+        Route::get('/level/export_pdf', [LevelController::class, 'export_pdf']); //ajax from download pdf
     });
 
     //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
@@ -199,5 +200,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/barang/import', [BarangController::class, 'import']); //ajax from upload excel
         Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']); //ajax import excel
         Route::get('/barang/export_excel', [BarangController::class, 'export_excel']); //ajax from download excel
+        Route::get('/barang/export_pdf', [BarangController::class, 'export_pdf']); //ajax from download pdf
     });
 });
