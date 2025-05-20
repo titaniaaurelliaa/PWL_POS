@@ -74,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/import', [UserController::class, 'import']); //ajax from upload excel
         Route::post('/user/import_ajax', [UserController::class, 'import_ajax']); //ajax import excel
         Route::get('/user/export_excel', [UserController::class, 'export_excel']); //ajax from download excel
+        Route::get('/user/export_pdf', [UserController::class, 'export_pdf']); //ajax from download pdf
     });
 
     //artinya semua route di dalam group ini harus punya role ADM (admin)
@@ -137,6 +138,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kategori/import', [KategoriController::class, 'import']); //ajax from upload excel
         Route::post('/kategori/import_ajax', [KategoriController::class, 'import_ajax']); //ajax import excel
         Route::get('/kategori/export_excel', [KategoriController::class, 'export_excel']); //ajax from download excel
+        Route::get('/kategori/export_pdf', [KategoriController::class, 'export_pdf']); //ajax from download pdf
     });
 
     //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
@@ -168,6 +170,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/supplier/import', [SupplierController::class, 'import']); //ajax from upload excel
         Route::post('/supplier/import_ajax', [SupplierController::class, 'import_ajax']); //ajax import excel
         Route::get('/supplier/export_excel', [SupplierController::class, 'export_excel']); //ajax from download excel
+        Route::get('/supplier/export_pdf', [SupplierController::class, 'export_pdf']); //ajax from download pdf
     });
 
     //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
