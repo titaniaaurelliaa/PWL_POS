@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
         // Import user
         Route::get('/user/import', [UserController::class, 'import']); //ajax from upload excel
         Route::post('/user/import_ajax', [UserController::class, 'import_ajax']); //ajax import excel
+        Route::get('/user/export_excel', [UserController::class, 'export_excel']); //ajax from download excel
     });
 
     //artinya semua route di dalam group ini harus punya role ADM (admin)
@@ -103,6 +104,7 @@ Route::middleware(['auth'])->group(function () {
         // Import level
         Route::get('/level/import', [LevelController::class, 'import']); //ajax from upload excel
         Route::post('/level/import_ajax', [LevelController::class, 'import_ajax']); //ajax import excel
+        Route::get('/level/export_excel', [LevelController::class, 'export_excel']); //ajax from download excel
     });
 
     //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
@@ -133,6 +135,7 @@ Route::middleware(['auth'])->group(function () {
         // Import kategori
         Route::get('/kategori/import', [KategoriController::class, 'import']); //ajax from upload excel
         Route::post('/kategori/import_ajax', [KategoriController::class, 'import_ajax']); //ajax import excel
+        Route::get('/kategori/export_excel', [KategoriController::class, 'export_excel']); //ajax from download excel
     });
 
     //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
@@ -163,6 +166,7 @@ Route::middleware(['auth'])->group(function () {
         // Import supplier
         Route::get('/supplier/import', [SupplierController::class, 'import']); //ajax from upload excel
         Route::post('/supplier/import_ajax', [SupplierController::class, 'import_ajax']); //ajax import excel
+        Route::get('/supplier/export_excel', [SupplierController::class, 'export_excel']); //ajax from download excel
     });
 
     //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
