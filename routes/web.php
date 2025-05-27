@@ -5,6 +5,7 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -204,5 +205,14 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/barang/import_ajax', [BarangController::class, 'import_ajax']); //ajax import excel
         Route::get('/barang/export_excel', [BarangController::class, 'export_excel']); //ajax from download excel
         Route::get('/barang/export_pdf', [BarangController::class, 'export_pdf']); //ajax from download pdf
+    });
+
+    //artinya semua route di dalam group ini harus punya role ADM (admin) atau (MNG) manager
+    //route CRUD profile
+    Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
+        Route::group(['prefix' => 'profile'], function () {
+            Route::get('/', [ProfileController::class, 'index']);
+            Route::post('/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar');
+        });
     });
 });
