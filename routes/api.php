@@ -54,6 +54,7 @@ Route::delete('kategoris/{kategori}', [\App\Http\Controllers\Api\KategoriControl
 
 // Route Barang
 Route::get('barangs', [\App\Http\Controllers\Api\BarangController::class, 'index']);
+Route::post('barangs1', [\App\Http\Controllers\Api\BarangController::class, 'store']);
 Route::post('barangs', [\App\Http\Controllers\Api\BarangController::class, 'store']);
 Route::get('barangs/{barang}', [\App\Http\Controllers\Api\BarangController::class, 'show']);
 Route::put('barangs/{barang}', [\App\Http\Controllers\Api\BarangController::class, 'update']);
